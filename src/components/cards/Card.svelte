@@ -11,7 +11,7 @@
 
 <style lang=scss>
   .card-container {
-    height: 300px;
+    height: 600px;
     filter: drop-shadow(0 0 5px #00000098);
     padding: 1.2rem;
     padding-left: 1.5rem;
@@ -23,5 +23,6 @@
   .card-title {
     font-size: 22px;
     font-weight: 600;
+    margin-bottom: 1rem;
   }
 </style>
