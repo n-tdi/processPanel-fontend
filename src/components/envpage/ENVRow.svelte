@@ -1,14 +1,15 @@
 <script>
     export let key;
     export let value;
-
+    export let removeFunction;
+    export let editFunction;
 </script>
 
 <div class="container">
     <p class="key">{key}</p>
     <div class="info">
-        <button class="info-btn">Edit</button>
-        <button class="info-btn">Remove</button>
+        <button class="info-btn" on:click={() => editFunction(key, "new")}>Edit</button>
+        <button class="info-btn" on:click={() => {removeFunction(key)}}>Remove</button>
     </div>
     <p class="value">{value}</p>
 </div>
@@ -42,5 +43,6 @@
         border: none;
         background-color: $darkest;
         color: $white;
+        cursor: pointer;
     }
 </style>

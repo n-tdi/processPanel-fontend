@@ -11,7 +11,7 @@
 
 <style lang=scss>
   .card-container {
-    height: 600px;
+    min-height: 600px;
     filter: drop-shadow(0 0 5px #00000098);
     padding: 1.2rem;
     padding-left: 1.5rem;
