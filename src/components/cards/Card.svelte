@@ -21,6 +21,7 @@
   }
 
   .card-title {
+    font-size: 22px;
     font-weight: 600;
   }
 </style>
