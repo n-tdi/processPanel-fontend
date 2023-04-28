@@ -29,6 +29,7 @@
     };
 
     const add = (key, value) => {
+      penv = penv.filter(env => env.key !== key);
       if (key !== "" && value !== "") penv = [...penv, {key: key, value: value}];
       addKey = "";
       addValue = "";
