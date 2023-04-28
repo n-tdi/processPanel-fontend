@@ -1,9 +1,20 @@
 <script>
+  import { logUpdate } from "../../Stores.js";
   export let action;
   export let title;
+
+  const sendAction = () => {
+    fetch('http://localhost:8000/api/v1/poweraction/' + action + '?key=' + sessionStorage.getItem('auth'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    logUpdate.set(true);
+  }
 </script>
 
-<button class="power-button">
+<button class="power-button" on:click={sendAction}>
   <h2 class="power-title">{title}</h2>
 </button>
 

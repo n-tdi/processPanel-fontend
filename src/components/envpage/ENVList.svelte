@@ -1,39 +1,74 @@
 <script>
-    import Popup from "../cards/Popup.svelte";
-    import EnvRow from "./ENVRow.svelte";
+  import Popup from "../cards/Popup.svelte";
+  import EnvRow from "./ENVRow.svelte";
+  import { browser } from '$app/environment';
+  import { logUpdate } from "../../Stores.js";
 
-    let addKey = "";
-    let addValue = "";
+  let addKey = "";
+  let addValue = "";
 
-    let penvEnabled = true;
+  let penvEnabled;
+  let penv = [];
 
-    let penv = [
-        {key: "APP", value: "TRUE"},
-        {key: "COOL", value: "TRUE"},
-        {key: "REAL", value: "TRUE"}
-    ];
-
-    const remove = (key) => {
-        penv = penv.filter(env => env.key !== key);
-        console.log("Calling API on " + key);
-    };
-
-    const edit = (key, value) => {
-        penv = penv.map(env => {
-            if (env.key === key) {
-                env.value = value;
-            }
-            return env;
-        });
-        console.log("Editing " + key + " to " + value);
-    };
-
-    const add = (key, value) => {
-      penv = penv.filter(env => env.key !== key);
-      if (key !== "" && value !== "") penv = [...penv, {key: key, value: value}];
-      addKey = "";
-      addValue = "";
+  fetch('http://localhost:8000/api/v1/penv/has', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
     }
+  }).then(res => res.json()).then(res => {
+    penvEnabled = res.response;
+    if (penvEnabled && browser) {
+      fetch('http://localhost:8000/api/v1/penv/get?key=' + sessionStorage.getItem('auth'), {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.json()).then(res => {
+        penv = res.response;
+      });
+    }
+  });
+
+  const remove = (key) => {
+    penv = penv.filter(env => env.key !== key);
+    fetch('http://localhost:8000/api/v1/penv/remove?key=' + sessionStorage.getItem('auth') + '&key1=' + key, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    logUpdate.set(true);
+  };
+
+  const edit = (key, value) => {
+    penv = penv.map(env => {
+      if (env.key === key) {
+        env.value = value;
+      }
+      return env;
+    });
+    fetch('http://localhost:8000/api/v1/penv/update?key=' + sessionStorage.getItem('auth') + '&key1=' + key + '&value=' + value, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    logUpdate.set(true);
+  };
+
+  const add = (key, value) => {
+    penv = penv.filter(env => env.key !== key);
+    if (key !== "" && value !== "") penv = [...penv, {key: key, value: value}];
+    addKey = "";
+    addValue = "";
+    fetch('http://localhost:8000/api/v1/penv/add?key=' + sessionStorage.getItem('auth') + '&key1=' + key + '&value=' + value, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    logUpdate.set(true);
+  }
 </script>
 
 {#if !penvEnabled}
