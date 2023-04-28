@@ -21,7 +21,7 @@
   </div>
   <div class="value-div">
     {#if !editing}
-      <p class="value" on:click={toggleEdit}>{value}</p>
+      <p class="value" on:keypress={toggleEdit} on:click={toggleEdit}>{value}</p>
     {:else}
       <form on:submit|preventDefault={toggleEdit}>
         <input type="text" on:focusout={toggleEdit} name="edit" id="edit" class="edit" bind:value={value}>
@@ -48,7 +48,7 @@
         }
     }
 
-    .key .value {
+    .key, .value {
         font-weight: 400;
     }
 

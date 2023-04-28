@@ -5,8 +5,6 @@
   import SignIn from '../components/cards/SignIn.svelte';
   import LogArea from '../components/logpage/LogArea.svelte';
 
-  export let data;
-
   let signedIn;
 
   if (browser) {

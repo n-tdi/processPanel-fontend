@@ -5,13 +5,14 @@
 	let list = [];
 	let element;
 
-  let needsUpdate;
+  let needsUpdate = true;
 
-  logUpdate.subscribe((value) => {
-    needsUpdate = value;
+  logUpdate.subscribe(v => {
+    needsUpdate = v;
   });
 
   const updateList = () => {
+    console.log(needsUpdate)
     if (needsUpdate) {
       fetch('http://localhost:8000/api/v1/log/get?key=' + sessionStorage.getItem('auth'), {
         method: 'GET',
@@ -20,8 +21,8 @@
         }
       }).then(res => res.json()).then(res => {
         list = res.logs;
+        logUpdate.set(false);
       });
-      logUpdate.set(false);
     }
   }
 	
