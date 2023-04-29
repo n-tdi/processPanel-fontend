@@ -2,6 +2,7 @@
   import Popup from "../cards/Popup.svelte";
   import EnvRow from "./ENVRow.svelte";
   import { browser } from '$app/environment';
+  import { PUBLIC_API_URL } from '$env/static/public'
   import { logUpdate } from "../../Stores.js";
 
   let addKey = "";
@@ -10,7 +11,7 @@
   let penvEnabled;
   let penv = [];
 
-  fetch('http://localhost:8000/api/v1/penv/has', {
+  fetch(PUBLIC_API_URL + 'penv/has', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -18,7 +19,7 @@
   }).then(res => res.json()).then(res => {
     penvEnabled = res.response;
     if (penvEnabled && browser) {
-      fetch('http://localhost:8000/api/v1/penv/get?key=' + sessionStorage.getItem('auth'), {
+      fetch(PUBLIC_API_URL + 'penv/get?key=' + sessionStorage.getItem('auth'), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -31,7 +32,7 @@
 
   const remove = (key) => {
     penv = penv.filter(env => env.key !== key);
-    fetch('http://localhost:8000/api/v1/penv/remove?key=' + sessionStorage.getItem('auth') + '&key1=' + key, {
+    fetch(PUBLIC_API_URL + 'penv/remove?key=' + sessionStorage.getItem('auth') + '&key1=' + key, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -47,7 +48,7 @@
       }
       return env;
     });
-    fetch('http://localhost:8000/api/v1/penv/update?key=' + sessionStorage.getItem('auth') + '&key1=' + key + '&value=' + value, {
+    fetch(PUBLIC_API_URL + 'penv/update?key=' + sessionStorage.getItem('auth') + '&key1=' + key + '&value=' + value, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -61,7 +62,7 @@
     if (key !== "" && value !== "") penv = [...penv, {key: key, value: value}];
     addKey = "";
     addValue = "";
-    fetch('http://localhost:8000/api/v1/penv/add?key=' + sessionStorage.getItem('auth') + '&key1=' + key + '&value=' + value, {
+    fetch(PUBLIC_API_URL + 'penv/add?key=' + sessionStorage.getItem('auth') + '&key1=' + key + '&value=' + value, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

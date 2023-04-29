@@ -1,5 +1,6 @@
 <script>
   import { browser } from '$app/environment';
+  import { PUBLIC_API_URL } from '$env/static/public'
   import Card from "../components/cards/Card.svelte";
   import EnvList from "../components/envpage/ENVList.svelte";
   import SignIn from '../components/cards/SignIn.svelte';
@@ -13,7 +14,7 @@
 
   const submit = (key) => {
     if (key !== '') {
-      fetch('http://localhost:8000/api/v1/login/checkkey?key=' + key, {
+      fetch(PUBLIC_API_URL + 'login/checkkey?key=' + key, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -29,6 +30,11 @@
     }
   }
 </script>
+
+<svelte:head>
+    <title>Process Panel - Ntdi World</title> 
+</svelte:head>
+
 
 {#if signedIn}
 <div class="cards-2">

@@ -1,4 +1,5 @@
 <script>
+  import { PUBLIC_API_URL } from '$env/static/public'
   import { afterUpdate, tick } from 'svelte';
   import { logUpdate } from '../../Stores';
 	
@@ -14,7 +15,7 @@
   const updateList = () => {
     console.log(needsUpdate)
     if (needsUpdate) {
-      fetch('http://localhost:8000/api/v1/log/get?key=' + sessionStorage.getItem('auth'), {
+      fetch(PUBLIC_API_URL + 'log/get?key=' + sessionStorage.getItem('auth'), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

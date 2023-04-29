@@ -1,10 +1,11 @@
 <script>
+  import { PUBLIC_API_URL } from '$env/static/public'
   import { logUpdate } from "../../Stores.js";
   export let action;
   export let title;
 
   const sendAction = () => {
-    fetch('http://localhost:8000/api/v1/poweraction/' + action + '?key=' + sessionStorage.getItem('auth'), {
+    fetch(PUBLIC_API_URL + 'poweraction/' + action + '?key=' + sessionStorage.getItem('auth'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
