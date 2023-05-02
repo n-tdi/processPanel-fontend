@@ -1,6 +1,6 @@
 <script>
   import { browser } from '$app/environment';
-  import { PUBLIC_API_URL } from '$env/static/public'
+  import { PUBLIC_API_URL } from '$env/dynamic/public'
   import Card from "../components/cards/Card.svelte";
   import EnvList from "../components/envpage/ENVList.svelte";
   import SignIn from '../components/cards/SignIn.svelte';

@@ -1,5 +1,5 @@
 <script>
-  import { PUBLIC_API_URL } from '$env/static/public'
+  import { PUBLIC_API_URL } from '$env/dynamic/public'
   import { afterUpdate, tick } from 'svelte';
   import { logUpdate } from '../../Stores';
 	

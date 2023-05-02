@@ -2,7 +2,7 @@
   import Popup from "../cards/Popup.svelte";
   import EnvRow from "./ENVRow.svelte";
   import { browser } from '$app/environment';
-  import { PUBLIC_API_URL } from '$env/static/public'
+  import { PUBLIC_API_URL } from '$env/dynamic/public'
   import { logUpdate } from "../../Stores.js";
 
   let addKey = "";
